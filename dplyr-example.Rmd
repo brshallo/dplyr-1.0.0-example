@@ -1,0 +1,59 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      ratio: 14:10
+      highlightStyle: github
+      highlightLines: true
+      slideNumberFormat: ''
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{css, echo = FALSE}
+.remark-slide-content {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace;
+                                    font-size: 60%;
+                                  }
+```
+
+```{r include = FALSE}
+library(tidyverse)
+library(flair)
+```
+
+.pull-left[
+```{r, echo = FALSE}
+flair::decorate_chunk("nest", eval = FALSE) %>% 
+  flair("across", background = "Aquamarine") %>% 
+  flair("{{", color = "CornflowerBlue") %>% 
+  flair("}}", color = "CornflowerBlue") %>% 
+  flair_lines(12)
+```
+]
+
+.pull-right[
+```{r nest, echo = FALSE}
+sum_group_vars <- function(df, 
+                           group_vars, 
+                           sum_vars){
+  df %>% 
+    group_by(across({{ group_vars }})) %>% 
+    summarise(n = n(), 
+              across({{ sum_vars }}, 
+                     list(mean = mean, sd = sd))
+              )
+}
+
+sum_group_vars(mpg, c(model, year), c(hwy, cty))
+```
+]

@@ -1,0 +1,3 @@
+pagedown::chrome_print("dplyr-example.Rmd", format = "png")
+
+# cropped outputted image by hand...
